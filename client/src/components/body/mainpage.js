@@ -6,7 +6,7 @@ import SearchResults from './searchresults';
 
 const MainPage = () => {
 
-    const[searchResults, setSearchResults] = useState();
+    const[searchResults, setSearchResults] = useState({});
 
     return (
         <div className="body-container">
