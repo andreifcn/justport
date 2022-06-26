@@ -1,10 +1,10 @@
-const SearchResults = ({ searchResults, setSearchResults }) => {
+import ResultsTable from "./resultstable";
 
-
+const SearchResults = ({ searchResults }) => {
 
     return (
         <div className="search-results-container">
-           {console.log(searchResults)}
+           <ResultsTable searchResults={ searchResults } />
         </div>
     )
 }

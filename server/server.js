@@ -1,45 +1,51 @@
-require("dotenv").config();
-const parseXML = require('xml2js').parseString;
-const axios = require("axios");
 const express = require("express");
 const app = express();
+const soapRequest = require("easy-soap-request");
+const parseXML = require('xml2js').parseString;
+require("dotenv").config();
 
 
 app.get('/query', (req, res) => {
     const queryData = req.query.param;
-    const currentDateTime = new Date().toISOString();
-    const startDateTime = '2013-12-17T03:24:00';
-    const nrDosar = '1206/112/2019';
 
-    const xmlBody = `<?xml version="1.0" encoding="utf-8"?>
-    <soap:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
-      <soap:Body>
-        <CautareDosare xmlns="portalquery.just.ro">
-          <numarDosar>${nrDosar}</numarDosar>
-          <obiectDosar>string</obiectDosar>
-          <numeParte>string</numeParte>
-          <institutie>CurteadeApelBUCURESTI</institutie>
-          <dataStart>${currentDateTime}</dataStart>
-          <dataStop>${startDateTime}</dataStop>
-        </CautareDosare>
-      </soap:Body>
-    </soap:Envelope>`;
+    // currentDate time (T) must be 00.00.00.000Z
 
+    const currentDate = new Date().setUTCHours(0, 0, 0, 0);
+    const startDateTime = new Date(currentDate).toISOString();
+    const stopDateTime = new Date('2016-03-03').toISOString();
+
+    // SOAP 1.2 request headers
+
+    const url = 'http://portalquery.just.ro/Query.asmx?op=CautareDosare';
     const options = {
-        headers: {'Content-Type': 'text/xml'}
+        'Content-Type': 'application/soap+xml; charset=utf-8',
+    };
+  
+    const xmlBody = `<?xml version="1.0" encoding="utf-8"?>
+    <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
+      <soap12:Body>
+        <CautareDosare xmlns="portalquery.just.ro">
+          <numeParte>${queryData}</numeParte>
+        </CautareDosare>
+      </soap12:Body>
+    </soap12:Envelope>`;
+
+    async function getData() {
+      try {
+        const { response } = await soapRequest({ url: url, headers: options, xml: xmlBody});
+        
+        // parse xml response to array using xml2js library
+
+        parseXML(await response.body, (err, result) => {
+            res.json(result["soap:Envelope"]["soap:Body"][0].CautareDosareResponse[0].CautareDosareResult[0].Dosar);
+            if (err) console.log(err);
+        });
+      } catch (e) {
+        console.log(e)
+      }
     }
 
-    axios.post('http://portalquery.just.ro/Query.asmx?op=CautareDosare', xmlBody, options)
-    .then(response => {
-        parseXML(response.data, { explicitArray: false }, function(err, result) {
-            console.log(result)
-            res.json(result);
-        });
-    })
-    .catch(err => console.log(err))
+    getData();
 });
-
-
-
 
 app.listen(3001, () => console.log('Server started on port 3001..'));

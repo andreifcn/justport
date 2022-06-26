@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const Searchbar = ({ searchResults, setSearchResults }) => {
+const Searchbar = ({ setSearchResults }) => {
 
     const[searchInput, setSearchInput] = useState('');
 
@@ -10,7 +10,6 @@ const Searchbar = ({ searchResults, setSearchResults }) => {
     };
 
     const onSubmit = (event) => {
-        console.log(searchInput)
         event.preventDefault();
         const getData = async () => {
             await fetch(`http://localhost:3001/query/?param=${searchInput}`, {
@@ -21,7 +20,6 @@ const Searchbar = ({ searchResults, setSearchResults }) => {
             .catch(err => console.error(err));
         }
         getData();
-        
     }
 
     return (

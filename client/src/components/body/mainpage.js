@@ -12,12 +12,10 @@ const MainPage = () => {
         <div className="body-container">
             <Header />
             <Searchbar 
-            searchResults={searchResults}
             setSearchResults={setSearchResults} 
             />
             <SearchResults
             searchResults={searchResults}
-            setSearchResults={setSearchResults}
             />
             <Footer />
         </div>
