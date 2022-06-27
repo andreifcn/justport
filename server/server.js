@@ -16,7 +16,7 @@ app.get('/query', (req, res) => {
 
     // SOAP 1.2 request headers
 
-    const url = 'http://portalquery.just.ro/Query.asmx?op=CautareDosare';
+    const url = 'http://portalquery.just.ro/Query.asmx?op=CautareDosare2';
     const options = {
         'Content-Type': 'application/soap+xml; charset=utf-8',
     };
@@ -24,9 +24,10 @@ app.get('/query', (req, res) => {
     const xmlBody = `<?xml version="1.0" encoding="utf-8"?>
     <soap12:Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://www.w3.org/2003/05/soap-envelope">
       <soap12:Body>
-        <CautareDosare xmlns="portalquery.just.ro">
+        <CautareDosare2 xmlns="portalquery.just.ro">
           <numeParte>${queryData}</numeParte>
-        </CautareDosare>
+          <institutie>TribunalulCLUJ</institutie>
+        </CautareDosare2>
       </soap12:Body>
     </soap12:Envelope>`;
 
@@ -37,7 +38,7 @@ app.get('/query', (req, res) => {
         // parse xml response to array using xml2js library
 
         parseXML(await response.body, (err, result) => {
-            res.json(result["soap:Envelope"]["soap:Body"][0].CautareDosareResponse[0].CautareDosareResult[0].Dosar);
+            res.json(result["soap:Envelope"]["soap:Body"][0].CautareDosare2Response[0].CautareDosare2Result[0].Dosar);
             if (err) console.log(err);
         });
       } catch (e) {

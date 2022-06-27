@@ -73,6 +73,25 @@
   min-height: 500px;
 }
 
+.search-results-container {
+  border-style: 5 solid black;
+  padding-top: 30px;
+
+}
+
+table {
+  border-style: 5px solid black;
+  width: 100%;
+}
+
+.results-table {
+  padding-top: 20px;
+  width: 100%;
+  border-style: 5px solid;
+  border-color: grey;
+  color: inherit;
+}
+
 .footer {
   background-color: gray;
   position: absolute;
