@@ -1,7 +1,7 @@
 import { useState } from "react";
 
-const Searchbar = ({ setSearchResults }) => {
 
+const Searchbar = ({ setSearchResults }) => {
     const[searchInput, setSearchInput] = useState('');
 
     const handleSearchInput = (event) => {
@@ -38,5 +38,6 @@ const Searchbar = ({ setSearchResults }) => {
         </form>
     )
 }
+
 
 export default Searchbar;

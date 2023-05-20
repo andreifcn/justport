@@ -4,8 +4,8 @@ import { Footer } from './footer';
 import Searchbar from './searchbar';
 import SearchResults from './searchresults';
 
-const MainPage = () => {
 
+const MainPage = () => {
     const[searchResults, setSearchResults] = useState({});
 
     return (
@@ -21,5 +21,6 @@ const MainPage = () => {
         </div>
     )
 }
+
 
 export default MainPage;
