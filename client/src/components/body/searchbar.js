@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const Searchbar = ({ setSearchResults }) => {
+const Searchbar = ({ setSearchResults, resultsLoading, setResultsLoading }) => {
     const[searchInput, setSearchInput] = useState('');
 
     const handleSearchInput = (event) => {
@@ -11,12 +11,17 @@ const Searchbar = ({ setSearchResults }) => {
 
     const onSubmit = (event) => {
         event.preventDefault();
+        setResultsLoading(true);
+  
         const getData = async () => {
             await fetch(`http://localhost:3001/query/?param=${searchInput}`, {
                 method: "GET"
             })
             .then(response => response.json())
-            .then(data => setSearchResults(data))
+            .then(data => { 
+                setSearchResults(data) 
+                setResultsLoading(false) 
+            })
             .catch(err => console.error(err));
         }
         getData();
@@ -24,6 +29,7 @@ const Searchbar = ({ setSearchResults }) => {
 
     return (
         <form onSubmit={onSubmit}>
+            {resultsLoading ? console.log('LOADING') : console.log('NO')}
             <div className="search-form">
                 <input
                     type="text"
