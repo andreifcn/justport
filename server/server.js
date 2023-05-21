@@ -8,7 +8,7 @@ require("dotenv").config();
 app.get('/query', (req, res) => {
     const queryData = req.query.param;
 
-    // currentDate time (T) must be 00.00.00.000Z
+    // currentDate time (T) must be 00.00.00.000Z for portal queries
 
     const currentDate = new Date().setUTCHours(0, 0, 0, 0);
     const startDateTime = new Date(currentDate).toISOString();

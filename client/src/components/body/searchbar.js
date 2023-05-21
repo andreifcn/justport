@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 
-const Searchbar = ({ setSearchResults, resultsLoading, setResultsLoading }) => {
+const Searchbar = ({ setSearchResults, setResultsLoading }) => {
     const[searchInput, setSearchInput] = useState('');
 
     const handleSearchInput = (event) => {
@@ -29,7 +29,6 @@ const Searchbar = ({ setSearchResults, resultsLoading, setResultsLoading }) => {
 
     return (
         <form onSubmit={onSubmit}>
-            {resultsLoading ? console.log('LOADING') : console.log('NO')}
             <div className="search-form">
                 <input
                     type="text"
