@@ -17,7 +17,7 @@
 }
 
 .navbar {
-  background-color: rgb(42, 42, 129);
+  background-color: #003772;
   color: white;
   display: flex;
   justify-content:space-evenly;
@@ -45,6 +45,11 @@
   background-color: grey;
 }
 
+#site-logo {
+  height: 6%;
+  width: 7%;
+}
+
 .search-form {
   display: flex;
   justify-content: center;
@@ -55,14 +60,14 @@
   height: 2.2rem;
   margin-top: 3rem;
   margin-bottom: 3rem;
-  border: solid 2.8px rgba(6, 6, 63, 0.658);
+  border: solid 2.8px #003772;
   text-align: center;
   background-color:#efefef;
 }
 
 #search-submit-button {
-  border: solid 2.8px rgb(42, 42, 129);
-  background-color: rgb(42, 42, 129);
+  border: solid 2.8px #003772;
+  background-color: #003772;
   width: 5rem;
   height: 2.2rem;
   margin-top: 3rem;
@@ -74,9 +79,13 @@
 .search-results-container {
   padding-top: 30px;
   padding-bottom: 50px;
-  min-height: 500px;
-  padding-left: 20%;
-  padding-right: 20%;
+}
+
+.results-table-container {
+  width: 40%;
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .results-table {
@@ -88,10 +97,17 @@ table, td, th {
   border-style: 5px solid black;
   table-layout: auto;
   border-collapse: collapse;
-  width: 100%;
-  padding: 15px;
+  line-height: 1rem;
+  font-size: 0.9rem;
+  
+  padding: 10px;
   border: 1px solid black;
   background-color: #eeeeee;
+}
+
+td,
+.cell-description {
+  vertical-align: top;
 }
 
 /* Loading Spinner */
@@ -106,10 +122,10 @@ table, td, th {
 }
 
 .loading-spinner {
-  width: 80px;
-  height: 80px;
+  width: 60px;
+  height: 60px;
   border: 10px solid #f3f3f3; /* Light grey */
-  border-top: 10px solid rgb(42, 42, 129); /* Blue */
+  border-top: 10px solid #003772; /* Blue */
   border-radius: 50%;
   animation: spinner 1.5s linear infinite;
 }
